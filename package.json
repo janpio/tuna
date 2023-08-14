@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:admin": "dotenv -e .env.development.local -- npx prisma studio",
+    "db:push": "dotenv -e .env.development.local -- npx prisma db push"
   },
   "dependencies": {
+    "@prisma/client": "5.1.1",
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
@@ -24,6 +27,7 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "prettier": "^3.0.1"
+    "prettier": "^3.0.1",
+    "prisma": "^5.1.1"
   }
 }

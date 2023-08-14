@@ -1,5 +1,7 @@
 # Ignore everything
 /*
 
-# Except app
+# Except...
 !/app
+!/components
+!/prisma
