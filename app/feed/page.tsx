@@ -1,25 +1,23 @@
 import { db } from "@/lib/prisma";
 
-async function getFoobars() {
-  const foobars = await db.foobar.findMany();
+async function getPosts() {
+  const posts = await db.post.findMany();
 
-  if (!(foobars.length > 0)) {
-    // This will activate the closest `error.js` Error Boundary
+  if (!(posts.length > 0)) {
     throw new Error("Failed to fetch data");
   }
 
-  return foobars;
+  return posts;
 }
 
 export default async function Feed() {
-  const foobars = await getFoobars();
+  const posts = await getPosts();
 
   return (
     <div>
-      {foobars.map((foobar) => (
-        <div key={foobar.id}>
-          <div>{foobar.fizz}</div>
-          <div>{foobar.buzz}</div>
+      {posts.map((post) => (
+        <div key={post.id}>
+          <div>{post.text}</div>
         </div>
       ))}
     </div>

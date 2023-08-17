@@ -1,5 +1,6 @@
 {
   "name": "tuna",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,12 +10,13 @@
     "lint": "next lint",
     "db:admin": "dotenv -e .env.development.local -- npx prisma studio",
     "db:refresh": "dotenv -e .env.development.local -- npx prisma generate",
-    "db:push": "dotenv -e .env.development.local -- npx prisma db push"
+    "db:push": "dotenv -e .env.development.local -- npx prisma db push",
+    "db:seed": "dotenv -e .env.development.local -- npx prisma db seed"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.1.0",
     "@prisma/client": "5.1.1",
-    "@types/node": "20.5.0",
+    "@types/node": "^20.5.0",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "@vercel/postgres": "^0.4.1",
@@ -26,10 +28,16 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.3",
-    "typescript": "5.1.6"
+    "typescript": "^5.1.6"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
+    "nanoid": "^4.0.2",
     "prettier": "^3.0.1",
-    "prisma": "^5.1.1"
+    "prisma": "^5.1.1",
+    "ts-node": "^10.9.1"
+  },
+  "prisma": {
+    "seed": "ts-node --esm --transpile-only prisma/seed.ts"
   }
 }
