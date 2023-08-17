@@ -8,9 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "db:admin": "dotenv -e .env.development.local -- npx prisma studio",
+    "db:refresh": "dotenv -e .env.development.local -- npx prisma generate",
     "db:push": "dotenv -e .env.development.local -- npx prisma db push"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^3.1.0",
     "@prisma/client": "5.1.1",
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",

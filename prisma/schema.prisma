@@ -19,24 +19,34 @@ model Foobar {
   @@map(name: "foobars")
 }
 
-// model Post {
-//   id        String  @id @default(cuid())
-//   title     String
-//   content   String?
-//   published Boolean @default(false)
-//   author    User?   @relation(fields: [authorId], references: [id])
-//   authorId  String?
+model Post {
+  id       String  @id @default(cuid())
+  authorId String? @map(name: "author_id")
 
-//   @@map(name: "posts")
-// }
+  title     String
+  content   String?
+  published Boolean @default(false)
 
-// model User {
-//   id        String   @id @default(cuid())
-//   name      String?
-//   email     String?  @unique
-//   createdAt DateTime @default(now()) @map(name: "created_at")
-//   updatedAt DateTime @updatedAt @map(name: "updated_at")
-//   posts     Post[]
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
 
-//   @@map(name: "users")
-// }
+  author User? @relation(fields: [authorId], references: [id])
+
+  @@map(name: "posts")
+}
+
+model User {
+  id             String @id @default(cuid())
+  authProviderId String @unique
+
+  email  String @unique
+  handle String @unique
+  name   String
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  posts Post[]
+
+  @@map(name: "users")
+}

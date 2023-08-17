@@ -1,4 +1,4 @@
-import { db } from "@/prisma";
+import { db } from "@/lib/prisma";
 
 async function getFoobars() {
   const foobars = await db.foobar.findMany();

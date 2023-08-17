@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-export let prisma: PrismaClient;
+let prisma: PrismaClient;
 
 if (process.env.NODE_ENV === "production") {
   prisma = new PrismaClient();
@@ -13,3 +13,5 @@ if (process.env.NODE_ENV === "production") {
   }
   prisma = globalWithPrisma.prisma;
 }
+
+export const db = prisma
