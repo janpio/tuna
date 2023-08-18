@@ -1,0 +1,1 @@
+type NoSystemFields<T> = Omit<T, "id" | "createdAt" | "updatedAt">;
