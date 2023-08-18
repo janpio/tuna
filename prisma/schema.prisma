@@ -15,7 +15,8 @@ model Post {
   id       String @id @default(cuid())
   authorId String @map(name: "author_id")
 
-  text String
+  text   String
+  edited Boolean @default(false)
 
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")

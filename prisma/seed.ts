@@ -45,13 +45,12 @@ export async function createPosts(users: User[]) {
 
   users.forEach(async (user) => {
     const postCount = faker.number.int({ min: 0, max: 50 });
-    const userPosts: NoSystemFields<Post>[] = [];
 
-    for (let i = 0; i < postCount; i++) {
-      userPosts.push({ authorId: user.id, text: faker.word.words({ count: { min: 3, max: 15 } }) });
-    }
     const newPosts = await db.post.createMany({
-      data: userPosts,
+      data: Array.from({ length: postCount }, () => ({
+        authorId: user.id,
+        text: faker.word.words({ count: { min: 3, max: 15 } }),
+      })),
     });
     /* FIXME for now prisma does not support returning the actual records when
     using `*Many` methods. A work around for this, should i need to supply 
@@ -61,13 +60,15 @@ export async function createPosts(users: User[]) {
 
     prisma github issue to follow:
     https://github.com/prisma/prisma/issues/8131
-     */
-    // posts.push(newPosts);
+    */
+    return newPosts;
   });
 
   return posts;
 }
 
+/* FIXME this only runs when package.json has `"type": "module"`. But when this
+is added, the actual Next app breaks. */
 main()
   .then(async () => {
     await db.$disconnect();

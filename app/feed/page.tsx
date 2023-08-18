@@ -1,7 +1,8 @@
 import { db } from "@/lib/prisma";
+import { Post } from "@/components";
 
 async function getPosts() {
-  const posts = await db.post.findMany({ orderBy: { createdAt: "desc" } });
+  const posts = await db.post.findMany({ take: 10, orderBy: { createdAt: "desc" }, include: { author: true } });
 
   if (!(posts.length > 0)) {
     throw new Error("Failed to fetch data");
@@ -14,11 +15,15 @@ export default async function Feed() {
   const posts = await getPosts();
 
   return (
-    <div>
+    <div className="flex flex-col space-y-4">
       {posts.map((post) => (
-        <div key={post.id}>
-          <div>{post.text}</div>
-        </div>
+        <Post
+          author={post.author.name}
+          createdAt={post.createdAt}
+          text={post.text}
+          editedAt={post.edited ? post.updatedAt : undefined}
+          key={post.id}
+        />
       ))}
     </div>
   );
