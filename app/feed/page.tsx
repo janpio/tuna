@@ -1,7 +1,7 @@
 import { db } from "@/lib/prisma";
 
 async function getPosts() {
-  const posts = await db.post.findMany();
+  const posts = await db.post.findMany({ orderBy: { createdAt: "desc" } });
 
   if (!(posts.length > 0)) {
     throw new Error("Failed to fetch data");
