@@ -11,17 +11,34 @@ datasource db {
   shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
 }
 
+model Comment {
+  id       String @id @default(cuid())
+  postId   String @map(name: "post_id")
+  authorId String @map(name: "author_id")
+
+  author User @relation(fields: [authorId], references: [id])
+  post   Post @relation(fields: [postId], references: [id])
+
+  text String
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  @@map(name: "comments")
+}
+
 model Post {
   id       String @id @default(cuid())
   authorId String @map(name: "author_id")
+
+  author   User      @relation(fields: [authorId], references: [id])
+  comments Comment[]
 
   text   String
   edited Boolean @default(false)
 
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
-
-  author User @relation(fields: [authorId], references: [id])
 
   @@map(name: "posts")
 }
@@ -30,13 +47,14 @@ model User {
   id             String @id @default(cuid())
   authProviderId String @unique @map(name: "auth_provider_id")
 
+  posts    Post[]
+  comments Comment[]
+
   handle String @unique
   name   String
 
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
-
-  posts Post[]
 
   @@map(name: "users")
 }
