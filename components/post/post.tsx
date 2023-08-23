@@ -4,9 +4,9 @@ import { Comment } from "@/components/comment";
 interface PostProps {
   author: string;
   createdAt: Date;
-  editedAt: Date | undefined;
+  editedAt: Date | null;
   text: string;
-  comments?: ComponentProps<typeof Comment>[]; // NEXT figure out what best type here would be, probably import the comment component
+  comments: ComponentProps<typeof Comment>[];
 }
 
 export function Post({ author, createdAt, text, editedAt, comments }: PostProps) {
@@ -16,16 +16,14 @@ export function Post({ author, createdAt, text, editedAt, comments }: PostProps)
       <div>{text}</div>
       <div>{createdAt.toTimeString()}</div>
       {editedAt ? <div className="text-gray-400">{editedAt.toTimeString()}</div> : null}
-      {comments
-        ? comments.map((comment) => (
-            <Comment
-              author={comment.author}
-              createdAt={comment.createdAt}
-              text={comment.text}
-              editedAt={comment.editedAt}
-            />
-          ))
-        : null}
+      {comments.map((comment) => (
+        <Comment
+          author={comment.author}
+          createdAt={comment.createdAt}
+          text={comment.text}
+          editedAt={comment.editedAt}
+        />
+      ))}
     </div>
   );
 }

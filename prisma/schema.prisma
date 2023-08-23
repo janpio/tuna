@@ -19,7 +19,8 @@ model Comment {
   author User @relation(fields: [authorId], references: [id])
   post   Post @relation(fields: [postId], references: [id])
 
-  text String
+  text   String
+  edited Boolean @default(false)
 
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")

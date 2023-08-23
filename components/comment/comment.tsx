@@ -1,7 +1,7 @@
 interface CommentProps {
   author: string;
   createdAt: Date;
-  editedAt: Date | undefined;
+  editedAt: Date | null;
   text: string;
 }
 
