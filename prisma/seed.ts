@@ -2,9 +2,12 @@ import { nanoid } from "nanoid";
 import { faker } from "@faker-js/faker";
 import { PrismaClient } from "@prisma/client";
 
-const USER_COUNT = 20;
-const MAX_POSTS_PER_USER_COUNT = 30;
-const MAX_COMMENTS_PER_POST = 30;
+const USER_COUNT = 5;
+const MAX_POSTS_PER_USER_COUNT = 3;
+const MAX_COMMENTS_PER_POST = 3;
+// const USER_COUNT = 20;
+// const MAX_POSTS_PER_USER_COUNT = 30;
+// const MAX_COMMENTS_PER_POST = 30;
 
 const db = new PrismaClient();
 

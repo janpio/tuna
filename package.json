@@ -34,9 +34,10 @@
     "nanoid": "^4.0.2",
     "prettier": "^3.0.1",
     "prisma": "^5.1.1",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0"
   },
   "prisma": {
-    "seed": "ts-node --esm --transpile-only prisma/seed.ts"
+    "seed": "ts-node -r tsconfig-paths/register --compiler-options {\"type\":\"module\"} prisma/seed.ts"
   }
 }
